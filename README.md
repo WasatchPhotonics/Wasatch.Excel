@@ -15,7 +15,7 @@ Click here to see just how simple the Visual Basic code can be:
 
 The bad news is that a little tweaking may be required to get that DLL built
 and registered correctly, but we've tried to hone the process down to a few
-easy steps (see [Assembly Notes](#Assembly-Notes), below).
+easy steps (see [Assembly Notes](#assembly-notes), below).
 
 # Dependencies
 
