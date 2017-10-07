@@ -59,13 +59,16 @@ Normally we build Wasatch.NET for "Any CPU", but it seems to use COM you need
 to explicitly build in Visual Studio for either "x86" or "x64", depending on
 which architecture of Microsoft Office you're using.
 
+<a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-01-architecture.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-01-architecture.png" width="20%" height="20%" align="right"/></a>
 Note: this is different from asking whether you're running on a 64-bit version
 of Windows or not; many people run 32-bit Office on 64-bit Windows.  To find out
 which you're using, run Excel and go to File -> Help.
+<br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-01-config-mgr.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-01-config-mgr.png" width="20%" height="20%" align="right"/></a>
 You then need to set the same architecture when building Wasatch.NET, using
 Build -> Configuration Manager.
+<br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-02-com-visible.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-02-com-visible.png" width="20%" height="20%" align="right"/></a>
 While you're there, you'll also want to ensure that the WasatchNET library is
@@ -92,7 +95,7 @@ Recommended process:
 - Copy both WasatchNET.DLL and LibUsbDotNet.dll to C:\Windows\System32. 
   Technically they can probably be anywhere in the system %PATH%, so that 
   Excel can find them (DLLs are treated as executables for path purposes).
-- Registered WasatchNET.DLL 
+- Register WasatchNET.DLL via "regasm.exe"
 	- open a "cmd" DOS shell using "Run as administrator"
     - run *one* of the following two commands, based on the architecture of 
 	  your copy of Microsoft Office (*not* Microsoft Windows)
@@ -127,15 +130,19 @@ Excel 2010):
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-02-options.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-02-options.png" width="20%" height="20%" align="right"/></a>
 - Start by navigating to File -> Options...
+<br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-03-customize-ribbon.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-03-customize-ribbon.png" width="20%" height="20%" align="right"/></a>
 - select "Customize Ribbon", then check "Developer"...
+<br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-04-toolbar-vb.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-04-toolbar-vb.png" width="20%" height="20%" align="right"/></a>
 - adding the "Developer" tab to your ribbon, giving access to the Visual Basic editor...
+<br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-05-vba-editor.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-05-vba-editor.png" width="20%" height="20%" align="right"/></a>
 - ...providing a functional IDE in the middle of Excel!
+<br clear="all"/>
 
 ## Add Reference to WasatchNET to your spreadsheet
 
@@ -144,11 +151,13 @@ that you can refer to its namespace, classes and objects in your code.
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-01-add.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-01-add.png" width="20%" height="20%" align="right"/></a>
 - From the VBA Editor, select Tools->Add Reference...
+<br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-02-browse.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-02-browse.png" width="20%" height="20%" align="right"/></a>
 - then "Browse" to wherever you copied and registered WasatchNET.dll.  I think 
   you have to actually select the WasatchNET.tlb, which oddly doesn't show its 
   extension in the browse window.
+<br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-03-done.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-03-done.png" width="20%" height="20%" align="right"/></a>
 - You know you're finished when you see "[x] .NET application wrapper for Wasatch Photonics".
