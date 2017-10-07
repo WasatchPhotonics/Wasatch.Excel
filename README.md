@@ -38,7 +38,7 @@ Enlighten or Dash, one of our standard spectroscopy GUIs.
 .NET has changed a bit since Visual Basic 6 (VB6) and Visual Basic for
 Applications (VBA) were created. Our Wasatch.NET driver is normally built
 for "modern" (.NET 4.0 and above) integrations, using "Any CPU" whenever
-possible to avoid architecture (bitness issues).  
+possible to avoid architecture (bitness) issues.  
 
 Unfortunately, we have to dig back into that nastiness a bit to get things 
 working from Excel, but it turns out the process isn't too bad.  We are **not**
@@ -50,7 +50,7 @@ Windows.  Fortunately, it only takes a few minutes to do (and we'll be glad to
 help if you get stuck).
 
 (It's even possible that not all of these steps are required...I can only say 
-that this is what I did to get it working for an initial integration.  If you 
+that this is what I did to get it working for my testing.  If you 
 find a shorter, simpler or more robust process, please let us know!)
 
 ## Build WasatchNET for a specific COM architecture
@@ -60,14 +60,14 @@ to explicitly build in Visual Studio for either "x86" or "x64", depending on
 which architecture of Microsoft Office you're using.
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-01-architecture.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-01-architecture.png" width="20%" height="20%" align="right"/></a>
-Note: this is different from asking whether you're running on a 64-bit version
-of Windows or not; many people run 32-bit Office on 64-bit Windows.  To find out
-which you're using, run Excel and go to File -> Help.
+**Note**: this is different from asking whether you're running on a 64-bit version
+of Windows or not; many people run 32-bit Office on 64-bit Windows without even
+knowing it.  To find out which you're using, run Excel and go to File -> Help.
 <br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-01-config-mgr.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-01-config-mgr.png" width="20%" height="20%" align="right"/></a>
-You then need to set the same architecture when building Wasatch.NET, using
-Build -> Configuration Manager.
+You then need to set the same architecture when building Wasatch.NET in Visual 
+Studio, using Build -> Configuration Manager.
 <br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-02-com-visible.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-02-com-visible.png" width="20%" height="20%" align="right"/></a>
@@ -76,10 +76,10 @@ While you're there, you'll also want to ensure that the WasatchNET library is
 to the Application tab, clicking "Assembly" and finally checking "Make assembly
 COM-visible".
 
-(You may then have to similarly set the WinFormDemo and Setup installer projects
+(You may then have to similarly set the WinFormDemo, Test and Setup installer projects
 to x86 or x64 as appropriate.)
 
-### Pre-Built (Win10-64bit, Excel 2010 64-bit)
+### Pre-Built WasatchNET for Excel 2010 64-bit
 
 The version I used for my own testing and the displayed screenshots is provided
 in the repository as WasatchNET-x64.zip.  You'll still need to "register" it on your
@@ -150,7 +150,7 @@ Now that you have the VBA IDE, we need to add a "reference" to Wasatch.NET so
 that you can refer to its namespace, classes and objects in your code.
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-01-add.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-01-add.png" width="20%" height="20%" align="right"/></a>
-- From the VBA Editor, select Tools->Add Reference...
+- From the VBA Editor, select Tools->References...
 <br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-02-browse.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-02-browse.png" width="20%" height="20%" align="right"/></a>
@@ -165,6 +165,7 @@ that you can refer to its namespace, classes and objects in your code.
 ## Get coding!
 
 Using [WasatchDemo.vb](https://github.com/WasatchPhotonics/Wasatch.Excel/tree/master/WasatchDemo.vb) 
-as an example, start developing your Office-based spectroscopy application today!
+as an example, and refering to our [API documentation](http://www.wasatchphotonics.com/api/Wasatch.NET/) 
+as needed, start developing your Office-based spectroscopy application today!
 
 ![spreadsheet view](https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/demo-spreadsheet.png "Excel Spreadsheet")
