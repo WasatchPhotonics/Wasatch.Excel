@@ -1,126 +1,57 @@
-![script view](https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/demo-full.png "Excel Demo")
+![VBA Editor](https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/demo-full.png)
 
 # Overview
 
 Here is a simple spreadsheet showing how to access Wasatch Photonics 
 spectrometers from inside Microsoft Excel via Wasatch.NET.
 
-The good news is that once you've registered a COM-enabled WasatchNET.DLL
-of the correct architecture on your computer, it is extremely easy to
-instantiate and manipulate spectrometer objects from Excel macros.  
-
 Click here to see just how simple the Visual Basic code can be:
 
 - https://github.com/WasatchPhotonics/Wasatch.Excel/tree/master/WasatchDemo.vb
 
-The bad news is that a little tweaking may be required to get that DLL built
-and registered correctly, but we've tried to hone the process down to a few
-easy steps (see [Assembly Notes](#assembly-notes), below).
-
 # Dependencies
 
-The Excel demo requires the following DLLs, both available from 
-[Wasatch.NET](https://github.com/WasatchPhotonics/Wasatch.NET/tree/master/lib):
+The Excel demo requires that [Wasatch.NET](https://github.com/WasatchPhotonics/Wasatch.NET/)
+be installed, so if you haven't done so, download and run the appropriate installer here:
 
-* WasatchNET.dll
-* LibUsbDotNet.dll
+* http://wasatchphotonics.com/binaries/drivers/Wasatch.NET/
 
-The WasatchNET.dll may need to be custom-compiled to match the architecture of
-your Windows OS and your version of Microsoft Office...see 
-[Assembly Notes](#Assembly-Notes) below.
-
-It also requires .INF files to associate Wasatch Photonics spectrometers
-with LibUSB.NET.  Right now, the easiest way to do that is to install
-Enlighten or Dash, one of our standard spectroscopy GUIs.
-
-# Assembly Notes
-
-.NET has changed a bit since Visual Basic 6 (VB6) and Visual Basic for
-Applications (VBA) were created. Our Wasatch.NET driver is normally built
-for "modern" (.NET 4.0 and above) integrations, using "Any CPU" whenever
-possible to avoid architecture (bitness) issues.  
-
-Unfortunately, we have to dig back into that nastiness a bit to get things 
-working from Excel, but it turns out the process isn't too bad.  We are **not**
-leaving Wasatch.NET configured for single-architecture builds by default,
-because that would unnecessarily complicate things for more modern 
-architecture-neutral platforms; as a result, a custom build of Wasatch.NET may
-be required to get things working with your version of Excel on your version of
-Windows.  Fortunately, it only takes a few minutes to do (and we'll be glad to
-help if you get stuck).
-
-(It's even possible that not all of these steps are required...I can only say 
-that this is what I did to get it working for my testing.  If you 
-find a shorter, simpler or more robust process, please let us know!)
-
-## Build WasatchNET for a specific COM architecture
-
-Normally we build Wasatch.NET for "Any CPU", but it seems to use COM you need
-to explicitly build in Visual Studio for either "x86" or "x64", depending on
-which architecture of Microsoft Office you're using.
+A few notes to ensure faultless installation:
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-01-architecture.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/excel-01-architecture.png" width="20%" height="20%" align="right"/></a>
-**Note**: this is different from asking whether you're running on a 64-bit version
-of Windows or not; many people run 32-bit Office on 64-bit Windows without even
-knowing it.  To find out which you're using, run Excel and go to File -> Help.
+1. Note that You'll need to download the Wasatch.NET architecture (bitness) 
+   corresponding to *your copy of Excel*, which may be different than your 
+   version of Windows.  (Many companies install 32-bit Office onto 64-bit Windows
+   by default, and unless you're doing VBA programming you may never have reason
+   to know the difference.) Use File -> Help to check which version of Excel 
+   you're using.
 <br clear="all"/>
 
-<a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-01-config-mgr.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-01-config-mgr.png" width="20%" height="20%" align="right"/></a>
-You then need to set the same architecture when building Wasatch.NET in Visual 
-Studio, using Build -> Configuration Manager.
-<br clear="all"/>
+2. Remember to configure the libusb drivers the first time you connect a Wasatch
+   Photonics spectrometer to a computer:
 
-<a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-02-com-visible.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/visual-studio-02-com-visible.png" width="20%" height="20%" align="right"/></a>
-While you're there, you'll also want to ensure that the WasatchNET library is
-"COM Enabled" by right-clicking the WasatchNET project (not Solution), going
-to the Application tab, clicking "Assembly" and finally checking "Make assembly
-COM-visible".
+- https://github.com/WasatchPhotonics/Wasatch.NET#post-install-step-1-libusb-drivers
 
-(You may then have to similarly set the WinFormDemo, Test and Setup installer projects
-to x86 or x64 as appropriate.)
+3. The Wasatch.NET installers strive to do everything for you...but one thing 
+   they don't currently do is register the COM assembly so it can be used by VB6
+   and VBA.  For that, you need to lastly run the RegisterCOM.bat script as 
+   administrator, as described here:
 
-### Pre-Built WasatchNET for Excel 2010 64-bit
+- https://github.com/WasatchPhotonics/Wasatch.NET#post-install-step-2-com-registration-optional
 
-The version I used for my own testing and the displayed screenshots is provided
-in the repository as WasatchNET-x64.zip.  You'll still need to "register" it on your
-computer as described below.
+That's it! Not such a heavy price to pay in order to perform live spectroscopy 
+from a spreadsheet, is it :-)
 
-## Register the Assembly
+# Support
 
-After you've obtained or built an appropriate WasatchNET.dll, you'll need to
-"register" the assembly on your computer so it can be used by VB6 and VBA.
+If you have any issues, please let us know and we'll do our best to resolve them
+expediently:
 
-Recommended process:
+    support@wasatchphotonics.com
 
-- Copy both WasatchNET.DLL and LibUsbDotNet.dll to C:\Windows\System32. 
-  Technically they can probably be anywhere in the system %PATH%, so that 
-  Excel can find them (DLLs are treated as executables for path purposes).
-- Register WasatchNET.DLL via "regasm.exe"
-	- open a "cmd" DOS shell using "Run as administrator"
-    - run *one* of the following two commands, based on the architecture of 
-	  your copy of Microsoft Office (*not* Microsoft Windows)
-        - this assumes .NET 4.0 or newer is installed on your computer
-        - note the commands differ *only* by the directory "Framework" (x86) vs "Framework64" (x64)
+# Appendix: Excel VBA Quick Start
 
-### x86
-
-`C:\> \Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe /codebase /tlb:\Windows\System32\WasatchNET.tlb \Windows\System32\WasatchNET.dll`
-
-### x64
-
-`C:\> \Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe /codebase /tlb:\Windows\System32\WasatchNET.tlb \Windows\System32\WasatchNET.dll`
-
-If it works, you should see something like this:
-
-<pre>
-    Microsoft .NET Framework Assembly Registration Utility version 4.7.2046.0
-    for Microsoft .NET Framework version 4.7.2046.0
-    Copyright (C) Microsoft Corporation.  All rights reserved.
-
-    RegAsm : warning RA0000 : Registering an unsigned assembly with /codebase can cause your assembly to interfere with other applications that may be installed on the same computer. The /codebase switch is intended to be used only with signed assemblies. Please give your assembly a strong name and re-register it.
-    Types registered successfully
-    Assembly exported to 'C:\Windows\System32\WasatchNET.tlb', and the type library was registered successfully
-</pre>
+New to Visual Basic for Applications (VBA)?  Here are some quick steps to get you going!
 
 ## Enable VBA in Excel 
 
@@ -154,9 +85,7 @@ that you can refer to its namespace, classes and objects in your code.
 <br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-02-browse.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-02-browse.png" width="20%" height="20%" align="right"/></a>
-- then "Browse" to wherever you copied and registered WasatchNET.dll.  I think 
-  you have to actually select the WasatchNET.tlb, which oddly doesn't show its 
-  extension in the browse window.
+- then "Browse" to C:\\Windows\\WasatchNET.tlb (note: *not* the .DLL next to it!)
 <br clear="all"/>
 
 <a href="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-03-done.png"><img src="https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/ref-03-done.png" width="20%" height="20%" align="right"/></a>
@@ -168,4 +97,4 @@ Using [WasatchDemo.vb](https://github.com/WasatchPhotonics/Wasatch.Excel/tree/ma
 as an example, and refering to our [API documentation](http://www.wasatchphotonics.com/api/Wasatch.NET/) 
 as needed, start developing your Office-based spectroscopy application today!
 
-![spreadsheet view](https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/demo-spreadsheet.png "Excel Spreadsheet")
+![Spreadsheet](https://github.com/WasatchPhotonics/Wasatch.Excel/raw/master/screenshots/demo-spreadsheet.png)
